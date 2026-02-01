@@ -1,0 +1,44 @@
+.header-banner {
+  background-image: url('./assets/img/Header.jpg');
+ background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  position: relative;
+
+}
+
+.header-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.header-content {
+  position: relative;
+  text-align: center;
+  color: white;
+  z-index: 2;
+}
+
+.header-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.header-content p {
+  font-size: 1.2rem;
+}
+
+.header-banner > div {
+  position: relative;
+  z-index: 2;
+}
+
+.total-btn {
+  background-color: #000 !important;   /* Fondo negro */
+  color: #00aaff !important;           /* Azul brillante */
+  border: 1px solid #00aaff !important; /* Borde azul */
+  font-weight: bold;
+}
