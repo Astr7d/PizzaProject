@@ -1,4 +1,6 @@
-# React + Vite
+# PizzaProject con React + Vite
+
+Curso React para Desafio Latam
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
