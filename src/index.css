@@ -42,3 +42,63 @@
   border: 1px solid #00aaff !important; /* Borde azul */
   font-weight: bold;
 }
+
+.formulario {
+  width: 350px;
+  margin: 50px auto; /* centra horizontalmente */
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.error {
+  color: #d9534f;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.formulario button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.formulario button:hover:not(:disabled) {
+  background-color: #0069d9;
+}
+
+.formulario button:disabled {
+  background-color: #9ab9e0;
+  cursor: not-allowed;
+}
+
+/* Opcional: resaltar borde rojo en inputs con error */
+.form-control.error-input {
+  border-color: #d9534f;
+  background-color: #fff5f5;
+}
