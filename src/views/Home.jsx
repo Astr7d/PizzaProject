@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../components/Header.jsx'
 import CardPizza from '../components/CardPizza.jsx'
+import {pizzas} from '../pizzas.js'
 
 const Home = () => {
   return (
@@ -8,40 +9,23 @@ const Home = () => {
       <Header />
 
       <div className="container my-4">
-        <div className="row g-4 justify-content-center">
+        <h2 className="text-center mb-4">Nuestras Pizzas</h2>
 
-          <div className="col-auto">
-            <CardPizza
-              name="Pizza Napolitana"
-              price={5950}
-              ingredients={["mozzarella", "tomates", "jamón", "orégano"]}
-              img="https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-1239077_640_cl.jpg?alt=media&token=6a9a33da-5c00-49d4-9080-784dcc87ec2c"
-            />
-          </div>
-
-          <div className="col-auto">
-            <CardPizza
-              name="Pizza Española"
-              price={6950}
-              ingredients={["mozzarella", "gorgonzola", "parmesano", "provolone"]}
-              img="https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fcheese-164872_640_com.jpg?alt=media&token=18b2b821-4d0d-43f2-a1c6-8c57bc388fab"
-            />
-          </div>
-
-          <div className="col-auto">
-            <CardPizza
-              name="Pizza Pepperoni"
-              price={6950}
-              ingredients={["mozzarella", "pepperoni", "orégano"]}
-              img="https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-1239077_640_com.jpg?alt=media&token=e7cde87a-08d5-4040-ac54-90f6c31eb3e3"
-            />
-          </div>
-
-        </div>
+            <div className='row g-4 justify-content-center'>
+              {pizzas.map((pizza) => (
+                <div className='col-md-4' key={pizza.id}>
+                  <CardPizza 
+                    name={pizza.name}
+                    price={pizza.price}
+                    ingredients={pizza.ingredients}
+                    img={pizza.img}
+                     />
+                </div>
+              ))}
+            </div>
+        
       </div>
-
     </div>
-
   )
 }
 
