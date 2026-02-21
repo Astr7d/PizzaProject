@@ -1,6 +1,8 @@
 import React from 'react'
 
 const CardPizza = ({ name, price, ingredients, img }) => {
+
+
   return (
     <div className="card shadow-sm" style={{ width: "18rem" }}>
       <img src={img} className="card-img-top" alt={name} />
@@ -11,7 +13,16 @@ const CardPizza = ({ name, price, ingredients, img }) => {
         <p className="card-text">
           <strong>Ingredientes:</strong>
           <br />
-          {ingredients.join(", ")}
+
+          <ul className="list-unstyled ms-3 mt-1" style={{ fontSize: "0.95rem" }}>
+            {ingredients.map((ingrediente, index) => (
+              <li key={index}>
+                • {ingrediente}
+              </li>
+            ))}
+          </ul>
+               
+          {/* {ingredients.join(", ")} */}
         </p>
 
         <p className="card-text fw-bold">Precio: ${price}</p>

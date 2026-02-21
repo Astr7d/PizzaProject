@@ -1,9 +1,10 @@
 import { useState } from 'react';
 //import './App.css'
 import Navbar from './components/Navbar'
-import Home from './views/Home'
+//import Home from './views/Home'
 //import Register from './components/Register'
 import Footer from './components/Footer'
+import Cart from './components/Cart';
 //import Login from './components/Login';
 
 
@@ -24,7 +25,7 @@ function App() {
   return (
     <div>
       <Navbar/>
-      <Home/>
+      {/*<Home/>*/}
       {/*<Register
         formData={formData}
         onChange={handleChange}
@@ -33,6 +34,7 @@ function App() {
         formData={formData}
         onChange={handleChange}
       />*/}
+      <Cart/>
       <Footer/>
     </div>
   )
