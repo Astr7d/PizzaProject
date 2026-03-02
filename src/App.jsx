@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 //import Register from './components/Register'
 import Footer from './components/Footer'
 import Cart from './components/Cart';
+import Pizza from './components/Pizza';
 //import Login from './components/Login';
 
 
@@ -34,7 +35,8 @@ function App() {
         formData={formData}
         onChange={handleChange}
       />*/}
-      <Cart/>
+      {/*<Cart/>*/}
+      <Pizza/>
       <Footer/>
     </div>
   )

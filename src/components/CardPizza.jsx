@@ -1,7 +1,20 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 const CardPizza = ({ name, price, ingredients, img }) => {
+  {/*const [pizza, setPizza] = useState([]);
+  useEffect(() => {
+    consultarApi();
+  }, []);
 
+  const consultarApi = async () => {
+      const url = 'http://localhost:5000/api/pizzas';
+      const response = await fetch(url);
+      const data = await response.json();
+      // setear constante donde va a guardarse lo obtenido
+
+      setPizza(data);
+  }
+*/}
 
   return (
     <div className="card shadow-sm" style={{ width: "18rem" }}>
