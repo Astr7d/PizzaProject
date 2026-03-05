@@ -64,7 +64,7 @@ const Login = () => {
 
     // Simulación de login
     setTimeout(() => {
-      const isSuccess = formData.email === 'test@ejemplo.com' && formData.password === '123456';
+      const isSuccess = formData.email === 'test@gmail.com' && formData.password === '123456';
 
       if (isSuccess) {
         setSubmitMessage({ type: 'success', text: '¡Inicio de sesión exitoso!' });

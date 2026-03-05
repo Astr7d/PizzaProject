@@ -1,30 +1,54 @@
-import React from 'react'
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const total = 25000;
-  const token = false;
+  const total = 0;
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-        <a className="navbar-brand" href="#">Pizzería Mamma Mia!</a>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div className="container-fluid">
 
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span className="navbar-toggler-icon"></span>
-        </button>
+        {/* Logo / Home */}
+        <Link className="navbar-brand" to="/">
+          🍕 Pizzería Mamma Mia!
+        </Link>
 
+        {/* Menú */}
+        <div className="collapse navbar-collapse show">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
-      <div className="d-flex gap-2">
-        <button className="btn btn-outline-light">🍕 Home</button>
-        {/*<button className="btn btn-outline-light">🔓 Profile</button>
-        <button className="btn btn-outline-light">🔒 Logout</button>*/}
-        <button className="btn btn-outline-light">🔐 Login</button>
-        <button className="btn btn-outline-light">🔐 Register</button>
+            <li className="nav-item">
+              <Link className="btn btn-outline-light me-2" to="/">
+                Home
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="btn btn-outline-light me-2" to="/login">
+                Login
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="btn btn-outline-light me-2" to="/register">
+                Register
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="btn btn-outline-light me-2" to="/profile">
+                Profile
+              </Link>
+            </li>
+          </ul>
+
+          {/* Botón del carrito */}
+          <Link to="/cart" className="btn btn-outline-primary">
+            🛒 Total: ${total}
+          </Link>
+        </div>
       </div>
-
-        <button className="btn total-btn ms-auto">🛒 Total: ${total}</button>
-      
     </nav>
   );
-}
+};
 
 export default Navbar;

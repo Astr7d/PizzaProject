@@ -16,12 +16,13 @@ const Home = () => {
 
       console.log("DATA RECIBIDA:", data);
 
-      setPizzas(data); // tu backend devuelve un array directo
+      setPizzas(data);
     } catch (error) {
       console.error("Error al consultar la API:", error);
     }
   };
 
+  
   return (
     <div>
       <Header />
