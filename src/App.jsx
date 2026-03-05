@@ -1,45 +1,36 @@
-import { useState } from 'react';
-//import './App.css'
-import Navbar from './components/Navbar'
-//import Home from './views/Home'
-//import Register from './components/Register'
-import Footer from './components/Footer'
-import Cart from './components/Cart';
-import Pizza from './components/Pizza';
-//import Login from './components/Login';
+import { Routes, Route } from "react-router-dom";
+
+import Navbar from './components/Navbar';
+//import Login from './pages/Login';
+//import Home from './pages/Home';
+//import Register from './pages/Register';
+import Cart from './pages/Cart';
+import Pizza from './pages/Pizza';
+import Footer from './components/Footer';
+import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound";
 
 
-function App() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
-
-  const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
+const App = () => {
   return (
-    <div>
-      <Navbar/>
-      {/*<Home/>*/}
-      {/*<Register
-        formData={formData}
-        onChange={handleChange}
-      />*/}
-      {/*<Login
-        formData={formData}
-        onChange={handleChange}
-      />*/}
-      {/*<Cart/>*/}
-      <Pizza/>
-      <Footer/>
-    </div>
-  )
-}
+    <>
+      <Navbar />
 
-export default App
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/pizza/:id" element={<Pizza />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
+      <Footer />
+    </>
+  );
+};
+
+export default App;
+
