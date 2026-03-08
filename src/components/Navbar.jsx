@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const Navbar = () => {
-  const total = 0;
+  const { total } = useContext(CartContext);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
@@ -41,7 +43,7 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {/* Botón del carrito */}
+          {/* Botón del carrito con total dinámico */}
           <Link to="/cart" className="btn btn-outline-primary">
             🛒 Total: ${total}
           </Link>

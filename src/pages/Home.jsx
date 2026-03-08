@@ -21,7 +21,6 @@ const Home = () => {
       console.error("Error al consultar la API:", error);
     }
   };
-
   
   return (
     <div>
@@ -33,12 +32,7 @@ const Home = () => {
         <div className="row g-4 justify-content-center">
           {pizzas.map((pizza) => (
             <div className="col-md-4" key={pizza.id}>
-              <CardPizza
-                name={pizza.name}
-                price={pizza.price}
-                ingredients={pizza.ingredients}
-                img={pizza.img}
-              />
+              <CardPizza pizza={pizza} />
             </div>
           ))}
         </div>
