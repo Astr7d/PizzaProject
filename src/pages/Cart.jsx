@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { UserContext } from "../context/UserContext";
+
 
 const Cart = () => {
   const { cart, increase, decrease, removeFromCart, total } =
     useContext(CartContext);
+    const { token } = useContext(UserContext);
 
   return (
     <div className="container my-5">
@@ -88,7 +91,7 @@ const Cart = () => {
   </div>
 ))}
 
-          {/* Total */}
+ {/* Total */}
           <div className="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
             <h5 className="mb-0 fw-bold">Total:</h5>
             <h4 className="mb-0 fw-bold text-danger">
@@ -96,10 +99,11 @@ const Cart = () => {
             </h4>
           </div>
 
-          {/* Botón pagar */}
+{/* Botón pagar */}
           <div className="mt-4">
             <button
               className="btn btn-dark px-5 py-3 fw-bold"
+              disabled={!token}
               style={{
                 backgroundColor: "#000000",
                 borderColor: "#000000",

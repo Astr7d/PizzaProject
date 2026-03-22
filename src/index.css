@@ -102,3 +102,7 @@
   border-color: #d9534f;
   background-color: #fff5f5;
 }
+
+.card {
+  height: 100%;
+}

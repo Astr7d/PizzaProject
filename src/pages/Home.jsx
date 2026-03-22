@@ -14,14 +14,14 @@ const Home = () => {
       const response = await fetch("http://localhost:5000/api/pizzas");
       const data = await response.json();
 
-      console.log("DATA RECIBIDA:", data);
+      console.table(data);
 
       setPizzas(data);
     } catch (error) {
       console.error("Error al consultar la API:", error);
     }
   };
-  
+
   return (
     <div>
       <Header />
@@ -31,7 +31,7 @@ const Home = () => {
 
         <div className="row g-4 justify-content-center">
           {pizzas.map((pizza) => (
-            <div className="col-md-4" key={pizza.id}>
+            <div className="col-12 col-sm-6 col-md-4 d-flex" key={pizza.id}>
               <CardPizza pizza={pizza} />
             </div>
           ))}
