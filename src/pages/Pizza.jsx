@@ -7,16 +7,16 @@ const Pizza = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchPizza = async () => {
-    try {
-      const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
-      const data = await response.json();
-      setPizza(data);
-    } catch (error) {
-      console.error("Error al obtener la pizza:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
+    const data = await response.json();
+    setPizza(data);
+  } catch (error) {
+    console.error("Error al obtener la pizza:", error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchPizza();

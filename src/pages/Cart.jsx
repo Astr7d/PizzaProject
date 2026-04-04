@@ -1,12 +1,51 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../context/UserContext";
 
-
 const Cart = () => {
-  const { cart, increase, decrease, removeFromCart, total } =
-    useContext(CartContext);
-    const { token } = useContext(UserContext);
+  const { cart, increase, decrease, removeFromCart, total, clearCart } =
+    useContext(CCartContext);
+  const { token } = useContext(UserContext);
+
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // 🔥 HITO 7 — Enviar carrito al backend
+  const handleCheckout = async () => {
+    if (!token) {
+      alert("Debes iniciar sesión para pagar");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/checkouts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // token real
+        },
+        body: JSON.stringify({ cart }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Error al procesar el pago");
+        return;
+      }
+
+      // 🔥 HITO 8 — Mensaje de éxito
+      setSuccessMessage("¡Compra realizada con éxito!");
+
+      // Opcional: limpiar carrito
+      clearCart?.();
+
+      // Ocultar mensaje después de unos segundos
+      setTimeout(() => setSuccessMessage(""), 4000);
+
+    } catch (error) {
+      alert("Error al conectar con el servidor");
+    }
+  };
 
   return (
     <div className="container my-5">
@@ -17,81 +56,81 @@ const Cart = () => {
       ) : (
         <>
           {cart.map((item) => (
-  <div
-    key={item.id}
-    className="d-flex align-items-center mb-4 pb-3 border-bottom"
-  >
-    <img
-      src={item.img}
-      alt={item.name}
-      className="me-3 rounded"
-      style={{
-        width: "80px",
-        height: "80px",
-        objectFit: "cover",
-      }}
-    />
+            <div
+              key={item.id}
+              className="d-flex align-items-center mb-4 pb-3 border-bottom"
+            >
+              <img
+                src={item.img}
+                alt={item.name}
+                className="me-3 rounded"
+                style={{
+                  width: "80px",
+                  height: "80px",
+                  objectFit: "cover",
+                }}
+              />
 
-    <div className="flex-grow-1">
-      <div className="fw-bold">{item.name}</div>
-      <div className="text-muted small">
-        ${item.price.toLocaleString("es-CL")}
-      </div>
-    </div>
+              <div className="flex-grow-1">
+                <div className="fw-bold">{item.name}</div>
+                <div className="text-muted small">
+                  ${item.price.toLocaleString("es-CL")}
+                </div>
+              </div>
 
-    <div className="d-flex align-items-center gap-2">
-      <button
-        className="btn btn-sm btn-outline-danger p-0"
-        style={{
-          width: "36px",
-          height: "36px",
-          borderRadius: "0.2rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "1.1rem",
-        }}
-        onClick={() => decrease(item.id)}
-      >
-        -
-      </button>
+              <div className="d-flex align-items-center gap-2">
+                <button
+                  className="btn btn-sm btn-outline-danger p-0"
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "0.2rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1.1rem",
+                  }}
+                  onClick={() => decrease(item.id)}
+                >
+                  -
+                </button>
 
-      <span className="fw-bold mx-3">{item.quantity}</span>
+                <span className="fw-bold mx-3">{item.quantity}</span>
 
-      <button
-        className="btn btn-sm btn-outline-primary p-0"
-        style={{
-          width: "36px",
-          height: "36px",
-          borderRadius: "0.2rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "1.1rem",
-        }}
-        onClick={() => increase(item.id)}
-      >
-        +
-      </button>
-    </div>
+                <button
+                  className="btn btn-sm btn-outline-primary p-0"
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "0.2rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1.1rem",
+                  }}
+                  onClick={() => increase(item.id)}
+                >
+                  +
+                </button>
+              </div>
 
-    <div
-      className="ms-4 fw-bold text-end"
-      style={{ minWidth: "100px" }}
-    >
-      ${(item.price * item.quantity).toLocaleString("es-CL")}
-    </div>
+              <div
+                className="ms-4 fw-bold text-end"
+                style={{ minWidth: "100px" }}
+              >
+                ${(item.price * item.quantity).toLocaleString("es-CL")}
+              </div>
 
-    <button
-      className="btn btn-sm btn-outline-danger ms-3"
-      onClick={() => removeFromCart(item.id)}
-    >
-      X
-    </button>
-  </div>
-))}
+              <button
+                className="btn btn-sm btn-outline-danger ms-3"
+                onClick={() => removeFromCart(item.id)}
+              >
+                X
+              </button>
+            </div>
+          ))}
 
- {/* Total */}
+          {/* Total */}
           <div className="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
             <h5 className="mb-0 fw-bold">Total:</h5>
             <h4 className="mb-0 fw-bold text-danger">
@@ -99,11 +138,12 @@ const Cart = () => {
             </h4>
           </div>
 
-{/* Botón pagar */}
+          {/* Botón pagar */}
           <div className="mt-4">
             <button
               className="btn btn-dark px-5 py-3 fw-bold"
               disabled={!token}
+              onClick={handleCheckout}
               style={{
                 backgroundColor: "#000000",
                 borderColor: "#000000",
@@ -114,6 +154,13 @@ const Cart = () => {
               Pagar
             </button>
           </div>
+
+          {/* 🔥 Mensaje de éxito */}
+          {successMessage && (
+            <div className="alert alert-success mt-4 text-center fw-bold">
+              {successMessage}
+            </div>
+          )}
         </>
       )}
     </div>

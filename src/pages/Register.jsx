@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+// src/components/Register.jsx
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const { register } = useContext(UserContext);
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  
+
   const [errors, setErrors] = useState({
     email: '',
     password: '',
     confirmPassword: ''
   });
-  
+
   const [submitted, setSubmitted] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('');
 
   const validateForm = () => {
     const newErrors = {};
@@ -42,7 +48,7 @@ const Register = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
     setSuccessMessage('');
@@ -52,15 +58,23 @@ const Register = () => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      setSuccessMessage('¡Registro exitoso!');
-      // Limpio formulario
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      setErrors({ email: '', password: '', confirmPassword: '' });
-      setSubmitted(false);
+      // 🔥 REGISTRO REAL CON BACKEND
+      const res = await register(email, password);
 
-      setTimeout(() => setSuccessMessage(''), 4000);
+      if (res.ok) {
+        setSuccessMessage('¡Registro exitoso!');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setErrors({ email: '', password: '', confirmPassword: '' });
+        setSubmitted(false);
+
+        setTimeout(() => setSuccessMessage(''), 4000);
+
+        navigate('/'); // redirige al home
+      } else {
+        setErrorMessage(res.error || 'Error al registrarse');
+      }
     }
   };
 
@@ -73,6 +87,13 @@ const Register = () => {
         {successMessage && (
           <div className="alert alert-success mt-3">
             {successMessage}
+          </div>
+        )}
+
+        {/* Mensaje de error del backend */}
+        {errorMessage && (
+          <div className="alert alert-danger mt-3">
+            {errorMessage}
           </div>
         )}
 

@@ -1,11 +1,21 @@
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const Profile = () => {
-  const email = "ejemplo@ejemplo.com";
+  const { email, getProfile, logout } = useContext(UserContext);
+  const [profileEmail, setProfileEmail] = useState(email);
 
-  const handleLogout = () => {
-    alert("Sesión cerrada (simulado)");
-  };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const res = await getProfile();
+      if (res.ok) {
+        setProfileEmail(res.data.email);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   return (
     <div className="container my-5">
@@ -13,9 +23,9 @@ const Profile = () => {
 
       <div className="card p-4 shadow">
         <h4>Email:</h4>
-        <p>{email}</p>
+        <p>{profileEmail}</p>
 
-        <button className="btn btn-primary mt-3" onClick={handleLogout}>
+        <button className="btn btn-primary mt-3" onClick={logout}>
           Cerrar sesión
         </button>
 

@@ -1,7 +1,12 @@
 // src/components/Login.jsx
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const { login } = useContext(UserContext);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -31,13 +36,12 @@ const Login = () => {
       password: '',
     });
     setErrors({});
-    // El tiempo limitado
     setTimeout(() => setSubmitMessage(null), 4000);
   };
 
   const validateForm = () => {
     const newErrors = {};
-    // VALIDACION
+
     if (!formData.email.trim()) {
       newErrors.email = 'El email es obligatorio';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -54,7 +58,7 @@ const Login = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -62,23 +66,21 @@ const Login = () => {
     setIsLoading(true);
     setSubmitMessage(null);
 
-    // Simulación de login
-    setTimeout(() => {
-      const isSuccess = formData.email === 'test@gmail.com' && formData.password === '123456';
+    // 🔥 LOGIN REAL CON BACKEND
+    const res = await login(formData.email, formData.password);
 
-      if (isSuccess) {
-        setSubmitMessage({ type: 'success', text: '¡Inicio de sesión exitoso!' });
-        resetForm();                  
-      } else {
-        setSubmitMessage({
-          type: 'error',
-          text: 'Email o contraseña incorrectos',
-        });
-        
-      }
+    if (res.ok) {
+      setSubmitMessage({ type: 'success', text: '¡Inicio de sesión exitoso!' });
+      resetForm();
+      navigate('/'); // redirige al home
+    } else {
+      setSubmitMessage({
+        type: 'error',
+        text: res.error || 'Email o contraseña incorrectos',
+      });
+    }
 
-      setIsLoading(false);
-    }, 1200);
+    setIsLoading(false);
   };
 
   return (

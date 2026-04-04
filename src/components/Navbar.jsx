@@ -52,7 +52,10 @@ const Navbar = () => {
                 </li>
 
                 <li className="nav-item">
-                  <button className="btn btn-danger me-2" onClick={logout}>
+                  <button
+                    className="btn btn-danger me-2"
+                    onClick={logout}
+                  >
                     Logout
                   </button>
                 </li>
